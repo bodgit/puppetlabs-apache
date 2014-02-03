@@ -159,8 +159,11 @@ define apache::vhost(
     $setenvif                    = [],
     $block                       = [],
     $ensure                      = 'present',
+    $wsgi_application_group      = undef,
     $wsgi_daemon_process         = undef,
     $wsgi_daemon_process_options = undef,
+    $wsgi_import_script          = undef,
+    $wsgi_import_script_options  = undef,
     $wsgi_process_group          = undef,
     $wsgi_script_aliases         = undef,
     $custom_fragment             = undef,
@@ -206,6 +209,9 @@ define apache::vhost(
   }
   if $wsgi_daemon_process_options {
     validate_hash($wsgi_daemon_process_options)
+  }
+  if $wsgi_import_script_options {
+    validate_hash($wsgi_import_script_options)
   }
   if $itk {
     validate_hash($itk)
@@ -486,7 +492,9 @@ define apache::vhost(
   #   - $suphp_engine
   #   - $suphp_configpath
   # wsgi fragment:
+  #   - $wsgi_application_group
   #   - $wsgi_daemon_process
+  #   - $wsgi_import_script
   #   - $wsgi_process_group
   #   - $wsgi_script_aliases
   file { "${priority_real}-${filename}.conf":
