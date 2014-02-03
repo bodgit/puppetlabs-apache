@@ -675,6 +675,17 @@ Sets the order of processing `Allow` and `Deny` statements as per [Apache core d
     }
 ```
 
+######`sethandler`
+
+Sets a `SetHandler` directive as per the [Apache Core documentation](http://httpd.apache.org/docs/2.2/mod/core.html#sethandler). An example:
+
+```puppet
+    apache::vhost { 'sample.example.net':
+      docroot     => '/path/to/directory',
+      directories => [ { path => '/path/to/directory', sethandler => 'None', } ],
+    }
+```
+
 ######`auth_type`
 
 Sets the value for `AuthType` as per the [Apache AuthType
